@@ -67,7 +67,8 @@ async function start() {
 
   console.log("入力ハッシュ:", hash);
   console.log("正解ハッシュ:", correctHash);
-
+console.log("Secretの文字数:", import.meta.env.VITE_PASSWORD_HASH?.length);
+console.log("Secretの最初の3文字:", import.meta.env.VITE_PASSWORD_HASH?.substring(0, 3));
   if (hash === correctHash) {
     showBooks();
   } else {
