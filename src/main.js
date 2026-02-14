@@ -2,7 +2,7 @@ const correctHash = import.meta.env.VITE_PASSWORD_HASH;
 let bandiera = [];
 
 async function loadBook() {
-  const res = await fetch("/bandiera.json");
+  const res = await fetch(import.meta.env.BASE_URL + "bandiera.json");
   bandiera = await res.json();
 }
 
