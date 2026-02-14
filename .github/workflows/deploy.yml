@@ -19,7 +19,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-
+          
+      - name: Create .env file
+        run: echo "VITE_PASSWORD_HASH=${{ secrets.VITE_PASSWORD_HASH }}" > .env
       - run: npm install
       - run: npm run build
 
