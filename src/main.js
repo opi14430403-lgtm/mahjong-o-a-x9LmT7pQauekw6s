@@ -49,7 +49,18 @@ window.openBook = function (bookIndex = 0, pageGroup = 0) {
   }
   jumpButtons = jumpButtons.slice(0, -2); // 最後のコンマを削除
 
-  let html = `<h1>${book.title}</h1><p>${jumpButtons}</p><p>${startIndex + 1}～${Math.min(endIndex, book.pages.length)}ページ</p>`;
+  // 他の日記へのジャンプボタンを作成
+  let bookJumpButtons = "";
+  books.forEach((b, index) => {
+    if (index === bookIndex) {
+      bookJumpButtons += `<strong>${b.title}</strong>, `;
+    } else {
+      bookJumpButtons += `<button onclick="openBook(${index})" style="background: none; border: none; color: blue; cursor: pointer; text-decoration: underline; padding: 0; margin: 0; font: inherit;">${b.title}</button>, `;
+    }
+  });
+  bookJumpButtons = bookJumpButtons.slice(0, -2); // 最後のコンマを削除
+
+  let html = `<p>${bookJumpButtons}</p><h1>${book.title}</h1><p>${jumpButtons}</p><p>${startIndex + 1}～${Math.min(endIndex, book.pages.length)}ページ</p>`;
 
   displayPages.forEach(page => {
     html += `
