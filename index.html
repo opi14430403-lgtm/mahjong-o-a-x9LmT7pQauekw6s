@@ -1,13 +1,34 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>日記のばっくあっぷ</title>
+    <title>パスワードを入れてね</title>
   </head>
   <body>
     <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+
+    <script>
+      const correctHash = "e07133b5a69477e813adbe0d5198311f"; 
+
+      async function sha256(text) {
+        const msgUint8 = new TextEncoder().encode(text);
+        const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+      }
+
+      async function start() {
+        const input = prompt("パスワードを入力してください");
+        const hash = await sha256(input);
+
+        if (hash.startsWith(correctHash)) {
+          document.getElementById("app").innerHTML = "<h1>hello</h1>";
+        } else {
+          document.body.innerHTML = "<h1>アクセス拒否</h1>";
+        }
+      }
+
+      start();
+    </script>
   </body>
 </html>
