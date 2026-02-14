@@ -30,10 +30,15 @@ function showBooks() {
   `;
 }
 
-window.openBook = function () {
-  let html = `<h1>${book1.title}</h1><ul>`;
+window.openBook = function (pageGroup = 0) {
+  const pagesPerGroup = 10;
+  const startIndex = pageGroup * pagesPerGroup;
+  const endIndex = startIndex + pagesPerGroup;
+  const displayPages = book1.pages.slice(startIndex, endIndex);
 
-  book1.pages.forEach(page => {
+  let html = `<h1>${book1.title}</h1><p>${startIndex + 1}～${Math.min(endIndex, book1.pages.length)}ページ</p><ul>`;
+
+  displayPages.forEach(page => {
     html += `
       <li>
         <button onclick="openPage(${page.number})">
@@ -43,7 +48,17 @@ window.openBook = function () {
     `;
   });
 
-  html += "</ul><br><button onclick='showBooks()'>戻る</button>";
+  html += "</ul><br>";
+
+  // ナビゲーションボタン
+  if (pageGroup > 0) {
+    html += `<button onclick="openBook(${pageGroup - 1})">前へ</button>`;
+  }
+  if (endIndex < book1.pages.length) {
+    html += `<button onclick="openBook(${pageGroup + 1})">次へ</button>`;
+  }
+
+  html += "<br><br><button onclick='showBooks()'>戻る</button>";
 
   document.getElementById("app").innerHTML = html;
 };
