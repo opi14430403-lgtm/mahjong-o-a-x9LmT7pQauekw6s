@@ -36,19 +36,18 @@ window.openBook = function (pageGroup = 0) {
   const endIndex = startIndex + pagesPerGroup;
   const displayPages = book1.pages.slice(startIndex, endIndex);
 
-  let html = `<h1>${book1.title}</h1><p>${startIndex + 1}～${Math.min(endIndex, book1.pages.length)}ページ</p><ul>`;
+  let html = `<h1>${book1.title}</h1><p>${startIndex + 1}～${Math.min(endIndex, book1.pages.length)}ページ</p>`;
 
   displayPages.forEach(page => {
     html += `
-      <li>
-        <button onclick="openPage(${page.number})">
-          ${page.number}ページ
-        </button>
-      </li>
+      <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc;">
+        <h3>${page.number}ページ</h3>
+        <div>${page.content}</div>
+      </div>
     `;
   });
 
-  html += "</ul><br>";
+  html += "<br>";
 
   // ナビゲーションボタン
   if (pageGroup > 0) {
