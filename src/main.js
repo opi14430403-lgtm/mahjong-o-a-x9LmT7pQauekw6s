@@ -1,9 +1,8 @@
 const correctHash = import.meta.env.VITE_PASSWORD_HASH;
-let bandiera = [];
 
-async function loadBook() {
-  const res = await fetch(import.meta.env.BASE_URL + "bandiera.json");
-  bandiera = await res.json();
+async function loadBook(fileName) {
+  const res = await fetch(import.meta.env.BASE_URL + fileName);
+  return await res.json();
 }
 
 async function sha256(text) {
@@ -13,35 +12,48 @@ async function sha256(text) {
   return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
-// ===== バンディエラ =====
-const book1 = {
-  title: "バンディエラ",
-  get pages() {
-    return bandiera;
-  }
-};
+// ===== ブック定義 =====
+const books = [
+  { title: "バンディエラ", fileName: "bandiera.json", pages: [] },
+  { title: "バンディエラdue", fileName: "bandiera_due.json", pages: [] },
+  { title: "バンディエラtre", fileName: "bandiera_tre.json", pages: [] }
+];
 
 // ===== UI =====
 
 function showBooks() {
-  document.getElementById("app").innerHTML = `
-    <h1>日記一覧</h1>
-    <button onclick="openBook()">バンディエラ</button>
-  `;
+  let html = `<h1>日記一覧</h1>`;
+  books.forEach((book, index) => {
+    html += `<button onclick="openBook(${index})">${book.title}</button><br>`;
+  });
+  document.getElementById("app").innerHTML = html;
 }
 
-window.openBook = function (pageGroup = 0) {
+window.openBook = function (bookIndex = 0, pageGroup = 0) {
+  const book = books[bookIndex];
   const pagesPerGroup = 10;
   const startIndex = pageGroup * pagesPerGroup;
   const endIndex = startIndex + pagesPerGroup;
-  const displayPages = book1.pages.slice(startIndex, endIndex);
+  const displayPages = book.pages.slice(startIndex, endIndex);
 
-  let html = `<h1>${book1.title}</h1><p>${startIndex + 1}～${Math.min(endIndex, book1.pages.length)}ページ</p>`;
+  // ページグループのジャンプボタンを作成
+  let jumpButtons = "";
+  const totalPageGroups = Math.ceil(book.pages.length / pagesPerGroup);
+  for (let i = 0; i < totalPageGroups; i++) {
+    const pageNum = i * pagesPerGroup + 1;
+    if (i === pageGroup) {
+      jumpButtons += `<strong>${pageNum}</strong>, `;
+    } else {
+      jumpButtons += `<button onclick="openBook(${bookIndex}, ${i})" style="background: none; border: none; color: blue; cursor: pointer; text-decoration: underline; padding: 0; margin: 0; font: inherit;">${pageNum}</button>, `;
+    }
+  }
+  jumpButtons = jumpButtons.slice(0, -2); // 最後のコンマを削除
+
+  let html = `<h1>${book.title}</h1><p>${jumpButtons}</p><p>${startIndex + 1}～${Math.min(endIndex, book.pages.length)}ページ</p>`;
 
   displayPages.forEach(page => {
     html += `
       <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc;">
-        <h3>${page.number}ページ</h3>
         <div>${page.content}</div>
       </div>
     `;
@@ -51,10 +63,10 @@ window.openBook = function (pageGroup = 0) {
 
   // ナビゲーションボタン
   if (pageGroup > 0) {
-    html += `<button onclick="openBook(${pageGroup - 1})">前へ</button>`;
+    html += `<button onclick="openBook(${bookIndex}, ${pageGroup - 1})">前へ</button>`;
   }
-  if (endIndex < book1.pages.length) {
-    html += `<button onclick="openBook(${pageGroup + 1})">次へ</button>`;
+  if (endIndex < book.pages.length) {
+    html += `<button onclick="openBook(${bookIndex}, ${pageGroup + 1})">次へ</button>`;
   }
 
   html += "<br><br><button onclick='showBooks()'>戻る</button>";
@@ -74,7 +86,10 @@ window.openPage = function (pageNumber) {
 
 // ===== パスワードチェック =====
 async function start() {
-  await loadBook();
+  // すべてのブックをロード
+  for (let i = 0; i < books.length; i++) {
+    books[i].pages = await loadBook(books[i].fileName);
+  }
 
   const input = prompt("パスワードを入力してください");
   const hash = await sha256(input);
