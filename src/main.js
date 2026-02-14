@@ -60,13 +60,11 @@ window.openPage = function (pageNumber) {
 
 // ===== パスワードチェック =====
 async function start() {
+  
   await loadBook();
 
   const input = prompt("パスワードを入力してください");
   const hash = await sha256(input);
-
-  console.log("入力ハッシュ:", hash);
-  console.log("正解ハッシュ:", correctHash);
 
   if (hash === correctHash) {
     showBooks();
@@ -74,5 +72,6 @@ async function start() {
     document.body.innerHTML = "<h1>アクセス拒否</h1>";
   }
 }
+
 
 start();
