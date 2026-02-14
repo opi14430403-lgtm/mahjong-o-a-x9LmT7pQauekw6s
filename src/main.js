@@ -7,32 +7,57 @@ async function sha256(text) {
   return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
-const diaries = {
-  "1": "<h2>日記1</h2><p>今日は良い天気だった。</p>",
-  "2": "<h2>日記2</h2><p>麻雀で倍満をあがった。</p>",
-  "3": "<h2>日記3</h2><p>静かな一日だった。</p>"
+// ===== 第1巻（500ページ） =====
+const book1 = {
+  title: "第1巻",
+  pages: bandiera
 };
 
-function showMenu() {
-  let html = "<h1>日記一覧</h1><ul>";
-  for (let key in diaries) {
-    html += `<li><a href="#" onclick="openDiary('${key}')">日記${key}</a></li>`;
-  }
-  html += "</ul>";
-  document.getElementById("app").innerHTML = html;
+
+// ===== UI =====
+
+function showBooks() {
+  document.getElementById("app").innerHTML = `
+    <h1>日記一覧</h1>
+    <button onclick="openBook()">第1巻</button>
+  `;
 }
 
-window.openDiary = function(id) {
-  document.getElementById("app").innerHTML =
-    diaries[id] + '<br><br><button onclick="showMenu()">戻る</button>';
+window.openBook = function () {
+  let html = `<h1>${book1.title}</h1><ul>`;
+
+  book1.pages.forEach(page => {
+    html += `
+      <li>
+        <button onclick="openPage(${page.number})">
+          ${page.number}ページ
+        </button>
+      </li>
+    `;
+  });
+
+  html += "</ul><br><button onclick='showBooks()'>戻る</button>";
+
+  document.getElementById("app").innerHTML = html;
 };
 
+window.openPage = function (pageNumber) {
+  const page = book1.pages.find(p => p.number === pageNumber);
+
+  document.getElementById("app").innerHTML = `
+    ${page.content}
+    <br><br>
+    <button onclick="openBook()">目次へ戻る</button>
+  `;
+};
+
+// ===== パスワードチェック =====
 async function start() {
   const input = prompt("パスワードを入力してください");
   const hash = await sha256(input);
 
-  if (hash.startsWith(correctHash)) {
-    showMenu();
+  if (hash === correctHash) {
+    showBooks();
   } else {
     document.body.innerHTML = "<h1>アクセス拒否</h1>";
   }
