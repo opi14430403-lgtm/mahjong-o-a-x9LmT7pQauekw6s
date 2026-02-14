@@ -13,9 +13,9 @@ async function sha256(text) {
   return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
-// ===== 第1巻（500ページ） =====
+// ===== バンディエラ =====
 const book1 = {
-  title: "第1巻",
+  title: "バンディエラ",
   get pages() {
     return bandiera;
   }
@@ -26,7 +26,7 @@ const book1 = {
 function showBooks() {
   document.getElementById("app").innerHTML = `
     <h1>日記一覧</h1>
-    <button onclick="openBook()">第1巻</button>
+    <button onclick="openBook()">バンディエラ</button>
   `;
 }
 
@@ -65,10 +65,6 @@ async function start() {
   const input = prompt("パスワードを入力してください");
   const hash = await sha256(input);
 
-  console.log("入力ハッシュ:", hash);
-  console.log("正解ハッシュ:", correctHash);
-console.log("Secretの文字数:", import.meta.env.VITE_PASSWORD_HASH?.length);
-console.log("Secretの最初の3文字:", import.meta.env.VITE_PASSWORD_HASH?.substring(0, 3));
   if (hash === correctHash) {
     showBooks();
   } else {
