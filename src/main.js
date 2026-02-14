@@ -1,4 +1,10 @@
 const correctHash = import.meta.env.VITE_PASSWORD_HASH;
+let bandiera = [];
+
+async function loadBook() {
+  const res = await fetch("/bandiera.json");
+  bandiera = await res.json();
+}
 
 async function sha256(text) {
   const msgUint8 = new TextEncoder().encode(text);
@@ -10,9 +16,10 @@ async function sha256(text) {
 // ===== 第1巻（500ページ） =====
 const book1 = {
   title: "第1巻",
-  pages: bandiera
+  get pages() {
+    return bandiera;
+  }
 };
-
 
 // ===== UI =====
 
@@ -53,6 +60,8 @@ window.openPage = function (pageNumber) {
 
 // ===== パスワードチェック =====
 async function start() {
+  await loadBook();
+
   const input = prompt("パスワードを入力してください");
   const hash = await sha256(input);
 
@@ -62,5 +71,6 @@ async function start() {
     document.body.innerHTML = "<h1>アクセス拒否</h1>";
   }
 }
+
 
 start();
