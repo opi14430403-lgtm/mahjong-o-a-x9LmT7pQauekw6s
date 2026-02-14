@@ -60,6 +60,8 @@ window.openPage = function (pageNumber) {
 
 // ===== パスワードチェック =====
 async function start() {
+  console.log("correctHash:", correctHash);
+
   await loadBook();
 
   const input = prompt("パスワードを入力してください");
