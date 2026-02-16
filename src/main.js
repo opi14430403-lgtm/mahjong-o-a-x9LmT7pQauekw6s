@@ -16,7 +16,12 @@ async function sha256(text) {
 const books = [
   { title: "バンディエラ", fileName: "bandiera.json", pages: [] },
   { title: "バンディエラdue", fileName: "bandiera_due.json", pages: [] },
-  { title: "バンディエラtre", fileName: "bandiera_tre.json", pages: [] }
+  { title: "バンディエラtre", fileName: "bandiera_tre.json", pages: [] },
+  { title: "オピオイド", fileName: "opioid.json", pages: [] },
+  { title: "屋烏の愛", fileName: "oku.json", pages: [] },
+  { title: "愛を下さいこの通り", fileName: "manashita.json", pages: [] },
+  { title: "Minesweeper", fileName: "Minesweeper.json", pages: [] },
+  { title: "フルーツバスケット", fileName: "fruits_basket.json", pages: [] }
 ];
 
 // ===== UI =====
