@@ -29,13 +29,48 @@ const books = [
 function showBooks() {
   let html = `<h1>日記一覧</h1>`;
   books.forEach((book, index) => {
-    html += `<button onclick="openBook(${index})">${book.title}</button><br>`;
+    html += `
+      <button onclick="openBook(${index})" style="
+        display: block;
+        width: 90%;
+        padding: 20px;
+        margin: 15px auto;
+        font-size: 18px;
+        font-weight: bold;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      " 
+      onmouseover="this.style.backgroundColor='#0056b3'; this.style.transform='scale(1.05)';"
+      onmouseout="this.style.backgroundColor='#007bff'; this.style.transform='scale(1)';">
+        ${book.title}
+      </button>
+    `;
   });
   document.getElementById("app").innerHTML = html;
 }
 
 window.openBook = function (bookIndex = 0, pageGroup = 0) {
   const book = books[bookIndex];
+  
+  // 既存のopioid CSSを削除
+  const existingCss = document.getElementById("opioid-css");
+  if (existingCss) {
+    existingCss.remove();
+  }
+  
+  // オピオイド（bookIndex === 3）の場合、CSSを読み込む
+  if (bookIndex === 3) {
+    const link = document.createElement("link");
+    link.id = "opioid-css";
+    link.rel = "stylesheet";
+    link.href = import.meta.env.BASE_URL + "opioid/style.css";
+    document.head.appendChild(link);
+  }
+
   const pagesPerGroup = 10;
   const startIndex = pageGroup * pagesPerGroup;
   const endIndex = startIndex + pagesPerGroup;

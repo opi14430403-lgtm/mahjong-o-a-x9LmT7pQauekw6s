@@ -1,0 +1,201 @@
+@import url(https://use.fontawesome.com/releases/v5.6.1/css/all.css);
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.10/font-awesome-animation.css);
+.cor1 {
+  color: #fecb81;
+}
+.cor2 {
+  color: #ff00ff;
+}
+
+a{
+  color: #f0f0f0;
+}
+
+body {
+  display: inline;
+  text-align:center;
+  align-items: start;
+  justify-content: center;
+  height: auto;
+  background:linear-gradient(#000000,#cc6498);
+  color:#f0f0f0;
+}
+
+@import url(//fonts.googleapis.com/css?family=Monoton);
+.logo {
+  text-align: center;
+  width: 100%;
+  height: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  user-select: none; }
+.logo b{
+  font: 500  10vh "Monoton";
+  color: #fee;
+  text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #ff4444, 0 0 0.5em #ff4444, 0 0 0.1em #ff4444, 0 10px 3px #000;
+  line-height: 50px; }
+.logo b span{
+  font: 500 10vh "Monoton";
+  animation: blink linear infinite 2s; }
+.logo b span:nth-of-type(2){
+  font: 500 10vh "Monoton";
+  animation: blink linear infinite 3s; }
+@keyframes blink {
+  78% {
+    color: inherit;
+    text-shadow: inherit;   }
+  79%{
+     color: #333;   }
+  80% {
+    text-shadow: none; }
+  81% {
+    color: inherit;
+    text-shadow: inherit; }
+  82% {
+    color: #333;
+    text-shadow: none; }
+  83% {
+    color: inherit;
+    text-shadow: inherit; }
+  92% {
+    color: #333;
+    text-shadow: none; }
+  92.5% {
+    color: inherit;
+    text-shadow: inherit; } }
+
+.dialog-box_ryou,
+.dialog-box_other,
+.dialog-box_tetu,
+.dialog-box_tosi,
+.dialog-box_siba,
+.dialog-box_yume,
+.dialog-box_musi, {
+  text-align : left;
+  border-radius: 1em;
+  color: #fafafa;
+  margin: 5% auto;
+  max-width: 25em;
+  position: relative;
+  padding: 20px;
+  width: 95%;
+}
+.dialog-box_ryou {
+  border: 0.2em solid #37ddfd;
+  box-shadow: inset 0 0 0.4em #05d5fc, 0 0 0.4em #05d5fc;
+  padding-left: 10px;
+  padding-right: 10px;
+
+}
+.dialog-box_ryou:before {
+  border-left: 0.2em solid #37ddfd;
+  border-right: 0.2em solid #37ddfd;
+  color: #9ceefe;
+  text-shadow: 0 0 0.4em #05d5fc;
+}
+.dialog-box_ryou em {
+  color: #9ceefe;
+  font-size: 125%;
+}
+.dialog-box_tetu {
+  border: 0.2em solid #fecb81;
+  box-shadow: inset 0 0 0.4em #FFD400, 0 0 0.4em #FFD400;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.dialog-box_tetu:before {
+  border-left: 0.2em solid #fecb81;
+  border-right: 0.2em solid #fecb81;
+  color: #ffb65c;
+  text-shadow: 0 0 0.4em orange;
+}
+.dialog-box_tetu em {
+  color: #ffb65c;
+  font-size: 125%;
+}
+.dialog-box_tosi {
+  border: 0.2em solid #64ff47;
+  box-shadow: inset 0 0 0.4em #39ff14, 0 0 0.4em #39ff14;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.dialog-box_tosi:before {
+  border-left: 0.2em solid #64ff47;
+  border-right: 0.2em solid #64ff47;
+  color: #baffad;
+  text-shadow: 0 0 0.4em #39ff14;
+}
+.dialog-box_tosi em {
+  color: #baffad;
+  font-size: 125%;
+}
+.dialog-box_siba {
+  border: 0.2em solid #ff3;
+  box-shadow: inset 0 0 0.4em yellow, 0 0 0.4em yellow;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.dialog-box_siba:before {
+  border-left: 0.2em solid #ff3;
+  border-right: 0.2em solid #ff3;
+  color: #ff9;
+  text-shadow: 0 0 0.4em yellow;
+}
+.dialog-box_siba em {
+  color: #ff9;
+  font-size: 125%;
+}
+
+.dialog-box_yume {
+  border: 0.2em solid #fd37e6;
+  box-shadow: inset 0 0 0.4em #fc05ba, 0 0 0.4em #fc05ba;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.dialog-box_yume:before {
+  border-left: 0.2em solid #fd37e6;
+  border-right: 0.2em solid #fd37e6;
+  color: #ffabff;
+  text-shadow: 0 0 0.4em #fc05ba;
+}
+.dialog-box_yume em {
+  color: #ffabff;
+  font-size: 125%;
+}
+
+.dialog-box_musi {
+  border: 0.2em solid #b56926;
+  box-shadow: inset 0 0 0.4em #bd9402, 0 0 0.4em #bd9402;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.dialog-box_musi:before {
+  border-left: 0.2em solid #b56926;
+  border-right: 0.2em solid #b56926;
+  color: #debf8a;
+  text-shadow: 0 0 0.4em #bd9402;
+}
+.dialog-box_musi em {
+  color: #debf8a;
+  text-align : center;
+  font-size: 125%;
+}
+.dialog-box_other {
+  border: 0.2em solid #ff5b5b;
+  box-shadow: inset 0 0 0.4em #ffa8a8, 0 0 0.4em #ffa8a8;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.dialog-box_other:before {
+  border-left: 0.2em solid #ff5b5b;
+  border-right: 0.2em solid #ff5b5b;
+  color: #ffabab;
+  text-shadow: 0 0 0.4em #ffa8a8;
+}
+.dialog-box_other em {
+  color: #de8a8a;
+  text-align : center;
+  font-size: 125%;
+}
